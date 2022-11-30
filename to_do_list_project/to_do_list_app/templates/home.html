@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h1>Homepage</h1>
+<div>
+    {% for todo_list in all_todo_lists %}
+        <h1>{{todo_list.name}}</h1>
+        <h4>{{todo_list.description}}</h4>
+    
+        {% for item in all_items %}
+
+            {% if item.todo_list_id.id == todo_list.id %}
+
+                <ul>
+                    <li>Item name: {{item.name}}</li>
+                    <ul><li>Item description: {{item.description}}</li></ul>
+                </ul>
+                <button onclick='deleteItem(event, {{item.id}})'>Delete me</button>
+            {% endif %}
+        {% endfor %}
+
+        <h2>Create ITEMS</h2>
+        <label for="inputItemName" class="form-label">Item Name</label>
+        <input type="text" id="inputItemName" class="form-control" aria-describedby="passwordHelpBlock">
+        <label for="inputItemDescription" class="form-label">Item Description</label>
+        <input type="text" id="inputItemDescription" class="form-control" aria-describedby="passwordHelpBlock">
+        <input value={{todo_list.id}} id='input_todo_list_id'/>
+        <button onclick='createItem(event)'>Create Item</button>
+        
+        <button onclick='deleteTODOList(event, {{todo_list.id}})'>Delete me</button>
+    {% endfor %}
+</div>
+
+
+<h2>Create TODO LIST</h2>
+<label for="inputName" class="form-label">Name of TODO List</label>
+<input type="text" id="inputName" class="form-control" aria-describedby="passwordHelpBlock">
+<label for="inputDescription" class="form-label">Description</label>
+<input type="text" id="inputDescription" class="form-control" aria-describedby="passwordHelpBlock">
+<button onclick='createTODOList(event)'>Create TODO List</button>
+
+
+
+{% endblock %}
